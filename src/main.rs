@@ -8,7 +8,6 @@ async fn operations() {
     let _db = article::DB {
         client: client
     };
-    
     let post1 = Article {
         name: "python".to_string(),
         author: "david".to_string()
@@ -37,8 +36,10 @@ async fn operations() {
     };
 
     let update_doc = _db.update("5fe98cc20086bed2008e0841", new_post).await;
-
     println!("Updated Post {:?}", update_doc);
+
+    // Delete Document
+    _db.delete("5fe996d40008645b004fb919").await.unwrap();
 }
 
 #[tokio::main]

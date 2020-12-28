@@ -11,7 +11,7 @@ const COLL: &str = "articles";
 // Implemetation for the Database
 impl DB {
     // Get the collection name
-    pub fn get_collection(&self) -> Collection {
+    fn get_collection(&self) -> Collection {
         let dbname = env::var("DB_NAME").expect("DB_NAME env var must be set"); 
         self.client.database(&dbname).collection(COLL)
     }
@@ -58,9 +58,10 @@ impl DB {
     }
 
     // Delete one document
-    pub async fn delete(&self, id: ObjectId) -> Result<DeleteResult, ErrorKind>{
+    pub async fn delete(&self, id: &str) -> Result<DeleteResult, ErrorKind>{
+        let objectid = ObjectId::with_string(id).map_err(|_| ErrorKind::InvalidData)?;
         let data = doc! {
-            "_id": id
+            "_id": objectid
         };
         let delete_record = self.get_collection().delete_one(data, None).await;
         match delete_record {
