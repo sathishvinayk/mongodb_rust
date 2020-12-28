@@ -1,0 +1,14 @@
+[package]
+name = "mongo-rust"
+version = "0.1.0"
+authors = ["Sathishvinayk <sathishvinayk@codescatter.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+mongodb = { version = "1.1.1", features = ["async-std-runtime"], default-features = false }
+dotenv = "0.15"
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+futures = "0.3"
